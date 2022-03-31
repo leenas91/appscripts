@@ -1,4 +1,4 @@
-git
+git    (download git app to the local machine)
 git clone https://github.com/leenas91/appscripts.git
 code .   (open visual studio app)
 ls
