@@ -1,0 +1,132 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Users\trinco> git
+usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           [--super-prefix=<path>] [--config-env=<name>=<envvar>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone     Clone a repository into a new directory
+   init      Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add       Add file contents to the index
+   mv        Move or rename a file, a directory, or a symlink
+   restore   Restore working tree files
+   rm        Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect    Use binary search to find the commit that introduced a bug
+   diff      Show changes between commits, commit and working tree, etc
+   grep      Print lines matching a pattern
+   log       Show commit logs
+   show      Show various types of objects
+   status    Show the working tree status
+
+grow, mark and tweak your common history
+   branch    List, create, or delete branches
+   commit    Record changes to the repository
+   merge     Join two or more development histories together
+   rebase    Reapply commits on top of another base tip
+   reset     Reset current HEAD to the specified state
+   switch    Switch branches
+   tag       Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch     Download objects and refs from another repository
+   pull      Fetch from and integrate with another repository or a local branch
+   push      Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+See 'git help git' for an overview of the system.
+PS C:\Users\trinco> cd ..
+PS C:\Users> cd ..
+PS C:\> mkdir lee_git
+
+
+    Directory: C:\
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        31/03/2022     14:04                lee_git
+
+
+PS C:\> cd lee_git
+PS C:\lee_git> git clone https://github.com/leenas91/appscripts.git
+Cloning into 'appscripts'...
+warning: You appear to have cloned an empty repository.
+PS C:\lee_git> cd .\appscripts\
+PS C:\lee_git\appscripts> code .
+PS C:\lee_git\appscripts> ls
+
+
+    Directory: C:\lee_git\appscripts
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        31/03/2022     14:10           4133 form_lee.txt
+
+
+PS C:\lee_git\appscripts> git add .\lee_git.txt
+fatal: pathspec '.\lee_git.txt' did not match any files
+PS C:\lee_git\appscripts> git add .\lee_git
+fatal: pathspec '.\lee_git' did not match any files
+PS C:\lee_git\appscripts> git add .\form_lee.txt
+PS C:\lee_git\appscripts> git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   form_lee.txt
+
+PS C:\lee_git\appscripts> git commit -m "lee first appScript"
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'trinco@DESKTOP-VGBFV02.(none)')
+PS C:\lee_git\appscripts> git config --global user.email "thasan.leenas@gmail.com"
+PS C:\lee_git\appscripts> git config --global user.name "Leenas"
+PS C:\lee_git\appscripts> git commit -m "lee first appScript"
+[main (root-commit) 4c1e80e] lee first appScript
+ 1 file changed, 90 insertions(+)
+ create mode 100644 form_lee.txt
+PS C:\lee_git\appscripts> git status
+On branch main
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+nothing to commit, working tree clean
+PS C:\lee_git\appscripts> git push
+info: please complete authentication in your browser...
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 1.49 KiB | 1.49 MiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/leenas91/appscripts.git
+ * [new branch]      main -> main
+PS C:\lee_git\appscripts>
