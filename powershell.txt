@@ -2,9 +2,11 @@ git    (download git app to the local machine)
 git clone https://github.com/leenas91/appscripts.git
 code .   (open visual studio app)
 ls
+
 git add .\form_lee.txt
 git status
-git commit -m "lee first appScript"
+git commit -m "lee first appScript"     equal for add & commit(git commit -am "lee first appScript")
+
 git push
 
 git pull   (after direct changed on the web, update the local environment like web environment)
