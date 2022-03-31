@@ -1,0 +1,90 @@
+function afterSubmit(e) {
+  const info = e.namedValues;
+  const pdfFile = createPDF(info);
+  const entryRow = e.range.getRow();
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName("People").getRange(entryRow,10).setValue(pdfFile.getUrl());
+
+  sendEmail(e.namedValues['Email Address'][0],pdfFile);
+  //var emailTo = e.response.getRespondentEmail();
+  //sendEmail(emailTo,pdfFile);
+}
+
+function sendEmail(email,pdfFile){
+  if(email !== undefined){
+  GmailApp.sendEmail(email, "Here is Your PDF", "Your PDF is attached", {
+    attachments: [pdfFile.getAs(MimeType.PDF)],
+    name: 'Trincomale Campus EUSL'
+    });
+}
+}
+
+
+function createPDF(info) {
+  
+  const pdfFolder = DriveApp.getFolderById("1lSeyqzTEyM4E5wSqCubZT959CqivEWjZ");
+  const tempFolder = DriveApp.getFolderById("1Gm7dstr_KC9eUelRcG0wx3Bk4qK34kpu");
+  const templateDoc = DriveApp.getFileById("18dAJSZuaMhpOpRMnRPfavqODEL9mCG0GgIDVE1R7zaA");
+
+  const newTempFile = templateDoc.makeCopy(tempFolder);
+
+  const openDoc = DocumentApp.openById(newTempFile.getId());
+  const body = openDoc.getBody();
+  body.replaceText("{Title}", info['i) Title'][0]);
+  body.replaceText("{Full Name}", info['ii) Full Name'][0]);
+  body.replaceText("{Name with Initials}", info['iii) Name with Initials'][0]);
+  body.replaceText("{Sex}", info['iv) Sex'][0]);
+  body.replaceText("{Date of Birth}", info['v) Date of Birth'][0]);
+  body.replaceText("{NIC}", info['vi) NIC'][0]);
+  body.replaceText("{Citizenship}", info['vii) Citizenship '][0]);
+  body.replaceText("{Religion}", info['viii) Religion'][0]);
+  body.replaceText("{Race}", info['ix) Race'][0]);
+  body.replaceText("{Province}", info['x) Province'][0]);
+  body.replaceText("{District}", info['xi) District'][0]);
+
+  body.replaceText("{Landline}", info['Landline'][0]);
+  body.replaceText("{Mobile}", info['Mobile'][0]);
+  body.replaceText("{Permanent Address}", info['ii) Permanent Address'][0]);
+
+  body.replaceText("{Name of Guardian}", info['i) Name of Parent/Guardian'][0]);
+  body.replaceText("{Occupation of Guardian}", info['ii) Occupation of Parent/Guardian'][0]);
+  body.replaceText("{Contact No of Guardiane}", info['iii) Contact No of Parent/Guardian - Mobile'][0]);
+  body.replaceText("{Number of family members}", info['iv) Number of family members'][0]);
+  body.replaceText("{Annual income of the family}", info['v) Annual income of the family'][0]);
+
+
+  body.replaceText("{schoolol}", info['i) Name of the school where you sat for the G.C.E.(O/L)'][0]);
+
+  body.replaceText("{Districtol}", info['ii) District'][0]);
+  body.replaceText("{Email Address}", info['Email Address'][0]);
+
+  
+  body.replaceText("{Resultsol}", info['iii) Results'][0]);
+  body.replaceText("{schoolal}", info['iv) Name of the school where you sat for the G.C.E.(A/L)'][0]);
+  body.replaceText("{Districtal}", info['v) District'][0]);
+  body.replaceText("{Resultsal}", info['vi) Results'][0]);
+  const datelee1 = new Date().getDate();
+  const datelee2 = new Date().getMonth();
+  const datelee4 = new Date().getUTCMonth();
+  const datelee3 = new Date().getFullYear();
+  const datelee5 = datelee1+"/"+datelee2+"/"+datelee3+"/"+datelee4;
+  body.replaceText("{datee}", datelee5);
+
+
+  body.replaceText("{coverage}", info['i) What is the excellent network coverage in your area?'][0]);
+  body.replaceText("{phones}", info['ii) Which type of mobile phone do you use?'][0]);
+  body.replaceText("{elearning}", info['iii) What is the your preferred mode of e-learning'][0]);
+
+  body.replaceText("{FACULTY}", info['FACULTY'][0]);
+  body.replaceText("{DEPARTMENT1}", info['DEPARTMENT/UNIT'][0]);
+  body.replaceText("{DEPARTMENT2}", info['DEPARTMENT'][0]);
+  body.replaceText("{Registration Number}", info['Registration Number (EUSL/TC/IS/2020/.../...)'][0]);
+
+  openDoc.saveAndClose();
+
+  const blobPDF = newTempFile.getAs(MimeType.PDF);
+  //const blobPDF = newTempFile.getAs(application/pdf);
+  const pdfFile = pdfFolder.createFile(blobPDF).setName(info['Registration Number (EUSL/TC/IS/2020/.../...)'][0]);
+  tempFolder.removeFile(newTempFile);
+  return pdfFile;
+  
+}
