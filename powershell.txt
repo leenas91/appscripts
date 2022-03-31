@@ -7,6 +7,8 @@ git status
 git commit -m "lee first appScript"
 git push
 
+git pull   (after direct changed on the web, update the local environment like web environment)
+
 
 
 Windows PowerShell
